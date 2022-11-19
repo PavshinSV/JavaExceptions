@@ -26,18 +26,34 @@ public class Lesson2 {
 //            fl=inputFloat();
 //        }
 //        System.out.println("You entered float number: "+fl.get());
-//        sc.close();
+
 
 // Код к заданию 2
-        int[] intArray = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+//        int[] intArray = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+//        try {
+//            int d = 0;
+//            double catchedRes1 = intArray[8] / d;
+//            System.out.println("catchedRes1 = " + catchedRes1);
+//        } catch (ArithmeticException e) {
+//            System.out.println("Catching exception: " + e);
+//
+// Код к заданию 4
+        String st = new String();
         try {
-            int d = 0;
-            double catchedRes1 = intArray[8] / d;
-            System.out.println("catchedRes1 = " + catchedRes1);
-        } catch (ArithmeticException e) {
-            System.out.println("Catching exception: " + e);
+            st = enterString();
+        } catch (RuntimeException e) {
+            System.out.println(e.getMessage());
         }
 
+        sc.close();
+    }
+
+    private static String enterString() {
+        String s = sc.nextLine();
+        if (s.length()==0){
+            throw new RuntimeException("Empty string is not valid");
+        }
+        return s;
     }
 
     public static Optional inputFloat() {
