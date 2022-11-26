@@ -1,4 +1,4 @@
-package Lesson3;
+package Lesson3.Model;
 
 import java.util.Date;
 
@@ -10,7 +10,7 @@ public class Person {
     private Character sex;
     private String birthDate;
 
-    Person(String surname, String name, String patronymic, Long phoneNumber, char sex, String birthDate){
+    public Person(String surname, String name, String patronymic, Long phoneNumber, char sex, String birthDate){
         this.surname = surname;
         this.name=name;
         this.patronymic=patronymic;
@@ -18,7 +18,7 @@ public class Person {
         this.sex = sex;
         this.birthDate = birthDate;
     }
-    Person(){
+    public Person(){
         this.surname = "Anonymous";
         this.name="Anonymous";
         this.patronymic="Anonimovich";
@@ -61,5 +61,15 @@ public class Person {
                 ", sex=" + sex +
                 ", birthDate=" + birthDate +
                 '}';
+    }
+    public String toFile(){
+        StringBuilder builder = new StringBuilder();
+        builder.append("<").append(surname).append(">")
+                .append("<").append(name).append(">")
+                .append("<").append(patronymic).append(">")
+                .append("<").append(birthDate).append(">")
+                .append("<").append(phoneNumber).append(">")
+                .append("<").append(sex).append(">\n");
+        return builder.toString();
     }
 }

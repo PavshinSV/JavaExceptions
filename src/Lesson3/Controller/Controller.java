@@ -1,18 +1,19 @@
-package Lesson3;
+package Lesson3.Controller;
 
-import Lesson3.Exceptions.WrongArgumentsNumber;
-import Lesson3.Exceptions.WrongParameter;
+import Lesson3.Controller.Exceptions.WrongArgumentsNumber;
+import Lesson3.Controller.Exceptions.WrongParameter;
+import Lesson3.Model.Person;
+import Lesson3.View.ExportMethod;
+import Lesson3.View.View;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Scanner;
 
 public class Controller {
     public static Person enterPerson() throws WrongArgumentsNumber, WrongParameter {
         int args = 6;
-        System.out.println("Введите, через пробел, ФИО, телефон (без разделителей и спецсимволов, только цифры), дату рождения(dd.mm.YYYY) и пол (f-женский, m-мужской)");
-        System.out.println("Например: Иванов Иван Иванович 79504278456 01.01.2001 m");
+        HashSet<String> exceptions = new HashSet<>();
         try (Scanner sc = new Scanner(System.in)){
             String str = sc.nextLine();
             String[] strArr = str.split(" ");
@@ -45,29 +46,41 @@ public class Controller {
                 } else throw new WrongParameter("Неверно указанный параметр "+element);
             }
             if (surname == null) {
-                throw new WrongParameter("Ошибка при вводе Фамилии");
+                exceptions.add("Ошибка при вводе Фамилии");
             }
             if (name == null) {
-                throw new WrongParameter("Ошибка при вводе Имени");
+                exceptions.add("Ошибка при вводе Имени");
             }
             if (patronymic == null) {
-                throw new WrongParameter("Ошибка при вводе Отчества");
+                exceptions.add("Ошибка при вводе Отчества");
             }
             if (phone == null) {
-                throw new WrongParameter("Ошибка при вводе номера телефона");
+                exceptions.add("Ошибка при вводе номера телефона");
             }
             if (sex == null) {
-                throw new WrongParameter("Ошибка при вводе пола");
+                exceptions.add("Ошибка при вводе пола");
             }
             if (birthDate == null) {
-                throw new WrongParameter("Ошибка при вводе даты рождения");
+                exceptions.add("Ошибка при вводе даты рождения");
+            }
+            if (exceptions.size()!=0){
+                StringBuilder exceptionString = new StringBuilder();
+                Iterator<String> iterator = exceptions.iterator();
+                while (iterator.hasNext()){
+                    exceptionString.append(iterator.next());
+                    if (iterator.hasNext()){
+                        exceptionString.append(", ");
+                    }
+                }
+                throw new WrongParameter(exceptionString.toString());
+
             }
             Person person = new Person(surname, name, patronymic,phone,sex,birthDate);
             return person;
         }
     }
 
-    public static void fileWrite(Person newPerson) {
-        //todo
+    public static void fileWrite(Person newPerson, View view) {
+        view.printPerson(newPerson);
     }
 }

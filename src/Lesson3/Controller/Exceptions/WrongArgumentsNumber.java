@@ -1,4 +1,4 @@
-package Lesson3.Exceptions;
+package Lesson3.Controller.Exceptions;
 
 public class WrongArgumentsNumber extends Exception {
     public WrongArgumentsNumber(String message){
